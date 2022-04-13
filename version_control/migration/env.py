@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -5,9 +7,42 @@ from sqlalchemy import pool
 
 from alembic import context
 
+# 导入数据库模型
+# FIXME 导入要用绝对路径
+# 以免外部脚本引入该文件照成的路径问题
+
+from mysql_tools.config import DB_Config
+from mysql_tools.modules import Base
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+
+# 配置连接信息
+
+# 只修改了保存在内存里的信息，没有真正修改配置文件
+cfg_tool = DB_Config()
+config.set_main_option(
+    name='sqlalchemy.url',
+    value="mysql://{user}:{pwd}@{host}:{port}/{db_name}".format(
+        user=cfg_tool.db_user,
+        pwd=cfg_tool.db_pwd,
+        host=cfg_tool.db_host,
+        port=cfg_tool.db_port,
+        db_name=cfg_tool.db_name
+    )
+)
+
+# alembic/config.py/main 的时候就已经设置好Config了
+# 执行命令前就初始化了script/base.py/ScriptDirectory/version_ocations，所以无法像修改 sqlalchemy.url那样运行时指定数据库链接
+# alembic/command.py/upgrade 的时候就已经设置好script来自文件了
+# 这个env.py是在 base.py/run_env 函数的时候加载进来进行执行
+# 涉及好几个上下文，首先是环境上下文 runtime/environment.py/EnvironmentContext
+# 还有执行升级操作的上下文 runtime/migration.py/MigrationContext
+
+# 配置版本文件夹
+# 解析alembic.ini时， %(hear)s 会被替换成配置文件所在路径加入到config中
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -17,7 +52,7 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
