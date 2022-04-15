@@ -1,7 +1,7 @@
 """add column address
 
-Revision ID: db1912e824e8
-Revises: 05da143da2e9
+Revision ID: v256seq001
+Revises:
 Create Date: 2020-04-29 01:24:28.916821
 
 """
@@ -26,4 +26,3 @@ def upgrade():
 
 def downgrade():
     op.drop_column('account', 'address')
-    pass

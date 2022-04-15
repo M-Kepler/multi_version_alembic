@@ -2,17 +2,10 @@
 
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
 from alembic import context
-
-# 导入数据库模型
-# FIXME 导入要用绝对路径
-# 以免外部脚本引入该文件照成的路径问题
-
 from mysql_tools.config import DB_Config
 from mysql_tools.modules import Base
+from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

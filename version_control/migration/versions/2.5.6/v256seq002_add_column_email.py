@@ -1,7 +1,7 @@
 """add column email
 
-Revision ID: 05da143da2e9
-Revises: 3918b7a3aec0
+Revision ID: v256seq002
+Revises: v256seq001
 Create Date: 2020-04-29 01:14:57.513381
 
 """

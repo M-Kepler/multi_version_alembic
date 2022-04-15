@@ -1,7 +1,7 @@
 """add column age
 
-Revision ID: 05da143da2e9
-Revises: 3918b7a3aec0
+Revision ID: v257seq002
+Revises: v257seq001
 Create Date: 2020-04-29 01:14:57.513381
 
 """

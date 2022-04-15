@@ -24,4 +24,3 @@ ALEMBIC_CFG_VER_KEY = "version_locations"
 # ---- 数据库迁移脚本路径
 
 VERSION_PTH = path.join(ALEMBIC_PTH, "migration/versions/")
-SCRIPT_PTH = path.join(ALEMBIC_PTH, "migration/versions")

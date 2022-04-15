@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pdb
 import subprocess
 import os
 
@@ -73,15 +74,23 @@ class DBHelper(object):
         遍历 migration/version 下的版本文件夹，组装成版本链
         """
         exclude_dirs = ['__pycache__', 'test']
-        ver_dirs = []
+
+        migrate_script_path = []
+        version_dirs = []
+
+        # 各个版本的迁移脚本
         for _, dirs, _ in os.walk(const.VERSION_PTH, topdown=False):
             for item in dirs:
                 if item not in exclude_dirs:
-                    ver_dirs.append(const.SCRIPT_PTH + "/" + item)
+                    version_dirs.append(const.VERSION_PTH+ "/" + item)
 
-        ver_dirs.append(const.SCRIPT_PTH)
+        # 注意这里要按版本大小倒序
+        # 比如版本目录为：['2.5.6', '2.5.7', '2.5.8']，那么迁移时是倒序执行的
+        migrate_script_path.extend(sorted(version_dirs, reverse=True))
 
-        return ' '.join(ver_dirs)
+        # 各个版本外的迁移脚本（比如一些初始化脚本）
+        migrate_script_path.append(const.VERSION_PTH)
+        return ' '.join(migrate_script_path)
 
     def _init_alembic_cfg(self):
         """
