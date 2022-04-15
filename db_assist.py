@@ -9,7 +9,7 @@ from sqlalchemy.exc import OperationalError
 
 from mysql_tools import engine
 from mysql_tools.config import DB_Config
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 import const
 
 
@@ -41,7 +41,7 @@ class DBHelper(object):
             is_existed = self._is_db_existed()
             if is_existed:
                 print("Warning: database already exists, this action will erase all data!")
-                choice = raw_input('Continue init database? (y/n): ')
+                choice = input('Continue init database? (y/n): ')
                 if choice.lower() != 'y':
                     print("Mission abort!")
                     return False

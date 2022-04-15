@@ -4,7 +4,7 @@
 数据库连接配置
 """
 from const import DB_CFG, DB_CFG_SECTION
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 
 class DB_Config(object):

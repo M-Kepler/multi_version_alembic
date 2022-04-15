@@ -25,7 +25,7 @@ config = context.config
 cfg_tool = DB_Config()
 config.set_main_option(
     name='sqlalchemy.url',
-    value="mysql://{user}:{pwd}@{host}:{port}/{db_name}".format(
+    value="mysql+pymysql://{user}:{pwd}@{host}:{port}/{db_name}".format(
         user=cfg_tool.db_user,
         pwd=cfg_tool.db_pwd,
         host=cfg_tool.db_host,

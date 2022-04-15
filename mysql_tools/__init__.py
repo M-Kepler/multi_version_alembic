@@ -12,7 +12,7 @@ def _get_conn_str():
     """
     cfg_tool = DB_Config()
     conn_str = (
-        'mysql+mysqldb://{user}:{pwd}@{host}:{port}/{db}?charset=utf8'.format(
+        'mysql+pymysql://{user}:{pwd}@{host}:{port}/{db}?charset=utf8'.format(
             user=cfg_tool.db_user,
             pwd=cfg_tool.db_pwd,
             host=cfg_tool.db_host,
